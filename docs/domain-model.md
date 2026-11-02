@@ -91,7 +91,7 @@ JSON blob or rule DSL), keyed by (plan, service type). The dimensions:
 | `annual_visit_limit` | Max visits per period (null = unlimited). |
 | `copay_amount` | Fixed member copay per line. |
 | `coinsurance_rate` | Member's share (0..1) of the amount after deductible + copay. |
-| `review_threshold_amount` | Billed above this → routed to manual review. |
+| `review_threshold_amount` | Billed at or above this → routed to manual review. |
 | `effective_from` / `effective_to` | Rule validity window. |
 
 The plan-wide deductible lives on `plan.annual_deductible_amount`.
@@ -117,7 +117,7 @@ matters** and is enforced and tested:
 7. **Limits.** If visits already used ≥ visit limit → deny `VISIT_LIMIT_EXCEEDED`.
    If the annual money limit is already exhausted → deny `ANNUAL_LIMIT_EXCEEDED`.
    Otherwise cap payable at the remaining limit → `LIMIT_PARTIALLY_APPLIED`.
-8. **Review threshold.** If `billed > review_threshold` → `NEEDS_REVIEW`
+8. **Review threshold.** If `billed >= review_threshold` → `NEEDS_REVIEW`
    (`OVER_REVIEW_THRESHOLD`).
 9. `payable = covered − deductible − copay − coinsurance`, floored at 0.
 
