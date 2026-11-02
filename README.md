@@ -84,7 +84,7 @@ If you only read two files, read `app/domain/adjudication.py` (all the business 
 4. **Copay** — fixed copay, capped at the remainder so payable can't go negative → `COPAY_APPLIED`.
 5. **Coinsurance** — `rate × remainder` → `COINSURANCE_APPLIED`.
 6. **Limits** — visits used ≥ visit limit → `VISIT_LIMIT_EXCEEDED`; annual money limit exhausted → `ANNUAL_LIMIT_EXCEEDED`; otherwise cap the payable at what's left → `LIMIT_PARTIALLY_APPLIED`.
-7. **Manual-review threshold** — `billed > threshold` → `NEEDS_REVIEW` (`OVER_REVIEW_THRESHOLD`).
+7. **Manual-review threshold** — `billed >= threshold` → `NEEDS_REVIEW` (`OVER_REVIEW_THRESHOLD`).
 
 A clean approval with no reductions is tagged `COVERED_IN_FULL`; every decision carries at least one reason. The **claim status** is a roll-up: any line in review → `under_review`; all approved → `approved`; all denied → `denied`; otherwise `partially_approved`.
 

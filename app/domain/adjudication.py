@@ -130,9 +130,9 @@ def _adjudicate(
 
     # 8. manual-review threshold (after limits, per documented order)
     decision = LineItemDecision.APPROVED
-    if rule.review_threshold_amount is not None and billed > rule.review_threshold_amount:
+    if rule.review_threshold_amount is not None and billed >= rule.review_threshold_amount:
         decision = LineItemDecision.NEEDS_REVIEW
-        reasons.append(_reason(ReasonCode.OVER_REVIEW_THRESHOLD, "The billed amount exceeds the manual-review threshold."))
+        reasons.append(_reason(ReasonCode.OVER_REVIEW_THRESHOLD, "The billed amount meets or exceeds the manual-review threshold."))
 
     # an approval with no reductions is covered in full
     if decision is LineItemDecision.APPROVED and not reasons:
